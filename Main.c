@@ -68,6 +68,16 @@ void bikinFile(){
     }
 }
 
+void daftarFungsi(int mode){
+    if(mode == 1){// admin
+        printf("1. buat file\n");
+        printf("2. buat file\n");
+    }else if(mode == 2){ // pelanggan
+        // pass
+    }
+    pilihMenu();
+}
+
 int gantiMode(int ganti){
     mode = ganti;
     return mode;
@@ -107,7 +117,36 @@ void login(){
             kesempatan--;
         }
     }
-};
+}
+
+void pilihMenu(){
+    int pilih;
+
+    printf("pilih menu : ");
+    scanf("%d", &pilih);
+
+    if(mode == 1){
+        switch (pilih){
+            case 1:
+                bikinFile();
+                break;
+            default:
+                printf("maaf, pilihan kamu gaada di menu\n");
+                break;
+        }
+    }else if(mode == 2){
+        switch (pilih){
+            case 1:
+                // bikinFile();
+                break;
+            default:
+                printf("maaf, pilihan kamu gaada di menu\n");
+                break;
+        }
+    }else{
+        printf("maaf kamu belum login\n"); 
+    }
+}
 
 
 
