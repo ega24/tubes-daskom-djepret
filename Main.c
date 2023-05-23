@@ -121,7 +121,20 @@ void login(){
             kesempatan--;
         }
     }
-};
+}
+
+void tambahPaket(){
+    // input nama dan harga paket
+    printf("nama paket  : ");
+    gets(paket[jumlahPaket].nama);
+    printf("harga paket : ");
+    scanf("%d", &paket[jumlahPaket].harga);
+
+    // update jumlah paket
+    jumlahPaket++;
+
+    printf("paket telah ditambahkan!\n\n");
+}
 
 
 
