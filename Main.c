@@ -21,26 +21,23 @@ struct Pelanggan{
     int bayar;
 } pelanggan[]; int jumlahPelanggan = 0;
 
-
-int gantiMode(int);
-void login();
+// fitur umum
 void daftarFungsi(int);
+int  gantiMode(int);
+void login();
 void pilihMenu();
 
 // fitur admin;
-void lihatPaket();
-void tambahPaket();
-void hapusPaket();
-void lihatFrame();
-void tambahFrame();
-void hapusFrame();
 void bikinFile();
+void cariJadwal();
 void editPaket();
 void editStok();
-void lihatStok();
+void hapusPaket();
 void lihatJadwal();
-void cariJadwal();
-void lihatincome(int);
+void lihatPaket();
+void lihatStok();
+void lihatIncome(int);
+void tambahPaket();
 
 // fitur pelanggan
 void inputJadwal();
@@ -53,6 +50,22 @@ int main(){
 
 
     return 0;
+}
+
+void bikinFile(){
+    // file pointer
+    FILE *fptr;
+
+    // ngebuka file
+    fptr = fopen("data djepret.dat", "w");
+
+    // ngecek filenya udah kebuat/kebuka
+    if(fptr == NULL){
+        printf("filenya gabisa kebuka\n");
+        exit(0);
+    } else{
+        printf("filenya udah kebuat\n");
+    }
 }
 
 int gantiMode(int ganti){
@@ -96,57 +109,5 @@ void login(){
     }
 };
 
-void daftarFungsi(int mode){
-    if(mode == 1){// admin
-        printf("1. buat file\n");
-        printf("2. buat file\n");
-    }else if(mode == 2){ // pelanggan
-        // pass
-    }
-    pilihMenu();
-}
 
-void pilihMenu(){
-    int pilih;
 
-    printf("pilih menu : ");
-    scanf("%d", &pilih);
-
-    if(mode == 1){
-        switch (pilih){
-            case 1:
-                bikinFile();
-                break;
-            default:
-                printf("maaf, pilihan kamu gaada di menu\n");
-                break;
-        }
-    }else if(mode == 2){
-        switch (pilih){
-            case 1:
-                // bikinFile();
-                break;
-            default:
-                printf("maaf, pilihan kamu gaada di menu\n");
-                break;
-        }
-    }else{
-        printf("maaf kamu belum login\n"); 
-    }
-}
-
-void bikinFile(){
-    // file pointer
-    FILE *fptr;
-
-    // ngebuka file
-    fptr = fopen("data djepret.dat", "w");
-
-    // ngecek filenya udah kebuat/kebuka
-    if(fptr == NULL){
-        printf("filenya gabisa kebuka\n");
-        exit(0);
-    } else{
-        printf("filenya udah kebuat\n");
-    }
-}
