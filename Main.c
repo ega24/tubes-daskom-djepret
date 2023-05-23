@@ -73,6 +73,37 @@ int gantiMode(int ganti){
     return mode;
 }
 
+void hapusPaket(){
+    char namaPaket[100];
+    int indexPaket = -1;
+
+    // input paket yang akan dicari
+    printf("masukan nama paket : ");
+    gets(namaPaket);
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(namaPaket,paket[i].nama) == 0){
+            indexPaket = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexPaket == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    // update urutan paket
+    for(int i = indexPaket; i < jumlahPaket -1; i++){
+        paket[i] = paket[i+1];
+    }
+
+    // update jumlah paket
+    jumlahPaket--;
+}
+
 void lihatPaket(){
     // pengecekan ketersediaan paket
     if(jumlahPaket == 0){
