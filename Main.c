@@ -73,6 +73,20 @@ int gantiMode(int ganti){
     return mode;
 }
 
+void lihatPaket(){
+    // pengecekan ketersediaan paket
+    if(jumlahPaket == 0){
+        printf("belum ada paket\n\n");
+    }else{
+        printf("\ndaftar paket :\n");
+        for (int i = 0; i < jumlahPaket; i++){
+            printf("%d. ", i+1);
+            printf("Nama : %s\n", paket[i].nama);
+            printf("   Harga : %d\n", paket[i].harga);
+        }
+    }
+}
+
 void login(){
     // variabel untuk menampung proses login
     char usernameInput[50], psswdInput[50];
