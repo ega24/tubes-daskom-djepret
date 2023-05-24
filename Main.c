@@ -67,6 +67,11 @@ void bikinFile(){
     }
 }
 
+int gantiMode(int ganti){
+    mode = ganti;
+    return mode;
+}
+
 void login(){
     // variabel untuk menampung proses login
     char usernameInput[50], psswdInput[50];
