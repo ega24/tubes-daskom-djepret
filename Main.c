@@ -30,8 +30,7 @@ void pilihMenu();
 // fitur admin;
 void bikinFile();
 void cariJadwal();
-void editPaket();
-void editStok();
+void editStokPaket();
 void hapusPaket();
 void lihatJadwal();
 void lihatPaket();
@@ -66,6 +65,35 @@ void bikinFile(){
     } else{
         printf("filenya udah kebuat\n");
     }
+}
+
+void editStokPaket(){
+    char namaPaket[100];
+    int indexPaket = -1;
+
+    // input paket yang akan dicari
+    printf("masukan nama paket : ");
+    gets(namaPaket);
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(namaPaket,paket[i].nama) == 0){
+            indexPaket = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexPaket == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    // masukan stok paket yang baru
+    printf("masukan stok paket : ");
+    scanf("%d", &paket[indexPaket].stok);
+
+    printf("stok paket telah diupdate!\n\n");
 }
 
 int gantiMode(int ganti){
