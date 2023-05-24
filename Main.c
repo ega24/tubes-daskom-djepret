@@ -14,7 +14,7 @@ struct Frame{
     char nama[100];
     int harga;
     int stok;
-} frame[]; 
+} frame[]; int jumlahFrame = 0;
 
 struct Paket{
     char nama[100];
@@ -47,12 +47,14 @@ void editStokFrame();
 void hapusPaket();
 void lihatJadwal();
 void lihatPaket();
-void lihatStok();
+void lihatStokFrame(char *);
 void lihatIncome(int);
 void tambahPaket();
+void tambahFrame();
 
 // fitur pelanggan
 void inputJadwal();
+void lihatStokFrame();
 void regisPelanggan();
 void topUpWallet();
 
@@ -184,6 +186,43 @@ void hapusPaket(){
     jumlahPaket--;
 }
 
+void lihatStokFrame(char cari[]){
+    int indexFrame = -1;
+
+    // mencari frame
+    for(int i = 0; i < jumlahFrame; i++){
+        if(strcmp(cari,frame[i].nama) == 0){
+            indexFrame = i;
+            break;
+        }
+    }
+
+    // pesan apabila frame tidak ditemukan
+    if(indexFrame == -1){
+        printf("frame tidak ditemukan\n\n");
+        return;
+    }
+
+    printf("Nama : %s\n", frame[indexFrame].nama);
+    printf("Harga : %d\n", frame[indexFrame].harga);
+    printf("Stok : %d\n", frame[indexFrame].stok);
+}
+
+void lihatStokFrame(){
+    // pengecekan ketersediaan frame
+    if(jumlahFrame == 0){
+        printf("belum ada paket\n\n");
+    }else{
+        printf("\ndaftar paket :\n");
+        for (int i = 0; i < jumlahFrame; i++){
+            printf("%d. ", i+1);
+            printf("Nama : %s\n", frame[i].nama);
+            printf("   Harga : %d\n", frame[i].harga);
+            printf("   Stok : %d\n", frame[i].stok);
+        }
+    }
+}
+
 void lihatPaket(){
     // pengecekan ketersediaan paket
     if(jumlahPaket == 0){
@@ -295,6 +334,21 @@ void regisPelanggan(){
     jumlahPelanggan++;
 
     printf("registrasi berhasil!\n\n");
+}
+
+void tambahFrame(){
+    // input nama, harga dan stok frame
+    printf("nama paket  : ");
+    gets(paket[jumlahPaket].nama);
+    printf("harga paket : ");
+    scanf("%d", &paket[jumlahPaket].harga);
+    printf("stok paket : ");
+    scanf("%d", &paket[jumlahPaket].stok);
+
+    // update jumlah frame
+    jumlahFrame++;
+
+    printf("frame telah ditambahkan!\n\n");
 }
 
 void tambahPaket(){
