@@ -24,6 +24,7 @@ struct Pelanggan{
     char nama[100];
     int jumlahOrang;
     int bayar;
+    int wallet;
 } pelanggan[]; int jumlahPelanggan = 0;
 
 // fitur umum
@@ -47,13 +48,13 @@ void tambahPaket();
 // fitur pelanggan
 void inputJadwal();
 void regisPelanggan();
+void topUpWallet();
 
 int main(){
     
     login(); 
-    printf("mode : %d\n", mode);
-    printf("indeks pelanggan : %d\n", indexPelanggan);
-
+    // printf("mode : %d\n", mode);
+    
     return 0;
 }
 
@@ -303,3 +304,15 @@ void tambahPaket(){
     printf("paket telah ditambahkan!\n\n");
 }
 
+void topUpWallet(){
+    // variabel untuk menampung jumlah topup
+    int jumlahTopup;
+
+    printf("masukan jumlah topup : ");
+    scanf("%d", &jumlahTopup);
+
+    // update jumlah uang 
+    pelanggan[indexPelanggan].wallet += jumlahTopup;
+
+    printf("topup berhasil\n\n");
+}
