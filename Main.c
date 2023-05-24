@@ -41,13 +41,12 @@ void tambahPaket();
 
 // fitur pelanggan
 void inputJadwal();
+void regisPelanggan();
 
 int main(){
   
     login(); 
-
     // printf("%d\n", mode);
-
 
     return 0;
 }
@@ -66,11 +65,6 @@ void bikinFile(){
     } else{
         printf("filenya udah kebuat\n");
     }
-}
-
-int gantiMode(int ganti){
-    mode = ganti;
-    return mode;
 }
 
 void login(){
@@ -109,5 +103,32 @@ void login(){
     }
 };
 
+void regisPelanggan(){
+    char userPelanggan[100];
+    
+    // masukan username
+    printf("masukan username : ");
+    gets(userPelanggan);
+    // gets(pelanggan[jumlahPelanggan].username);
+
+    // mengecek username
+    for(int i = 0; i < jumlahPelanggan; i++){
+        if(strcmp(userPelanggan, pelanggan[i].username) == 0){
+            printf("username telah terpakai\n\n");
+            return;
+        }
+    }
+    
+    strcpy(pelanggan[jumlahPelanggan].username, userPelanggan);
+    // pelanggan[jumlahPelanggan].username = userPelanggan;
+
+    printf("masukan password : ");
+    gets(pelanggan[jumlahPelanggan].password);
+
+    // update jumlah pelanggan 
+    jumlahPelanggan++;
+
+    printf("registrasi berhasil!\n\n");
+}
 
 
