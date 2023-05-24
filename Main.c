@@ -103,11 +103,11 @@ void login(){
                         printf("login menjadi pelanggan berhasil\n\n");
                         berhasil = true; gantiMode(2); break;
                     }
-                } else{
-                    // setiap login gagal maka jumlah kesempatan berkurang
-                    kesempatan--;
                 }
-            }        
+            }
+
+            // setiap login gagal maka jumlah kesempatan berkurang
+            kesempatan--;
         }
     }
 }
