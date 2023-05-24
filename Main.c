@@ -10,6 +10,8 @@ int mode;
 struct Paket{
     char nama[100];
     int harga;
+    int stok;
+    int jumlahOrang;
 } paket[]; int jumlahPaket = 0;
 // int jumlahPaket = sizeof(paket)/sizeof(paket[0]);
 
@@ -30,6 +32,7 @@ void pilihMenu();
 // fitur admin;
 void bikinFile();
 void cariJadwal();
+void editJumlahOrangPaket();
 void editStokPaket();
 void hapusPaket();
 void lihatJadwal();
@@ -65,6 +68,35 @@ void bikinFile(){
     } else{
         printf("filenya udah kebuat\n");
     }
+}
+
+void editJumlahOrangPaket(){
+    char namaPaket[100];
+    int indexPaket = -1;
+
+    // input paket yang akan dicari
+    printf("masukan nama paket : ");
+    gets(namaPaket);
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(namaPaket,paket[i].nama) == 0){
+            indexPaket = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexPaket == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    // masukan jumlah orang dalam paket yang baru
+    printf("masukan jumlah orang : ");
+    scanf("%d", &paket[indexPaket].jumlahOrang);
+
+    printf("jumlah orang telah diupdate!\n\n");
 }
 
 void editStokPaket(){
