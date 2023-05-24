@@ -10,6 +10,12 @@ int mode;
 // variabel untuk menampung indeks pelanggan
 int indexPelanggan = -1;
 
+struct Frame{
+    char nama[100];
+    int harga;
+    int stok;
+} frame[]; 
+
 struct Paket{
     char nama[100];
     int harga;
@@ -37,7 +43,7 @@ void pilihMenu();
 void bikinFile();
 void cariJadwal();
 void editJumlahOrangPaket();
-void editStokPaket();
+void editStokFrame();
 void hapusPaket();
 void lihatJadwal();
 void lihatPaket();
@@ -113,33 +119,33 @@ void editJumlahOrangPaket(){
     printf("jumlah orang telah diupdate!\n\n");
 }
 
-void editStokPaket(){
-    char namaPaket[100];
-    int indexPaket = -1;
+void editStokFrame(){
+    char namaFrame[100];
+    int indexFrame = -1;
 
     // input paket yang akan dicari
     printf("masukan nama paket : ");
-    gets(namaPaket);
+    gets(namaFrame);
 
     // mencari paket
     for(int i = 0; i < jumlahPaket; i++){
-        if(strcmp(namaPaket,paket[i].nama) == 0){
-            indexPaket = i;
+        if(strcmp(namaFrame,frame[i].nama) == 0){
+            indexFrame = i;
             break;
         }
     }
 
     // pesan apabila paket tidak ditemukan
-    if(indexPaket == -1){
+    if(indexFrame == -1){
         printf("paket tidak ditemukan\n\n");
         return;
     }
 
     // masukan stok paket yang baru
     printf("masukan stok paket : ");
-    scanf("%d", &paket[indexPaket].stok);
+    scanf("%d", &frame[indexFrame].stok);
 
-    printf("stok paket telah diupdate!\n\n");
+    printf("stok frame telah diupdate!\n\n");
 }
 
 int gantiMode(int ganti){
