@@ -7,6 +7,9 @@
 // buat variabel untuk roleplay sebagai admin(1)/pelanggan(2)
 int mode;
 
+// variabel untuk menampung indeks pelanggan
+int indexPelanggan = -1;
+
 struct Paket{
     char nama[100];
     int harga;
@@ -46,9 +49,10 @@ void inputJadwal();
 void regisPelanggan();
 
 int main(){
-  
+    
     login(); 
-    // printf("%d\n", mode);
+    printf("mode : %d\n", mode);
+    printf("indeks pelanggan : %d\n", indexPelanggan);
 
     return 0;
 }
@@ -216,7 +220,9 @@ void login(){
                 if(strcmp(usernameInput, pelanggan[i].username) == 0){
                     if(strcmp(psswdInput, pelanggan[i].password) == 0){
                         printf("login menjadi pelanggan berhasil\n\n");
-                        berhasil = true; gantiMode(2); break;
+                        berhasil = true; gantiMode(2); 
+                        indexPelanggan = i;
+                        break;
                     }
                 }
             }
@@ -296,5 +302,4 @@ void tambahPaket(){
 
     printf("paket telah ditambahkan!\n\n");
 }
-
 
