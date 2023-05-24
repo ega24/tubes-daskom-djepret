@@ -43,13 +43,12 @@ void tambahPaket();
 
 // fitur pelanggan
 void inputJadwal();
+void regisPelanggan();
 
 int main(){
   
     login(); 
-
     // printf("%d\n", mode);
-
 
     return 0;
 }
@@ -187,9 +186,6 @@ void login(){
     int kesempatan = 3; 
     bool berhasil = false;
 
-    // buat variabel untuk roleplay sebagai admin(1)/pelanggan(2)
-    int mode;
-
     // looping login
     while(kesempatan >0 && berhasil==false){
         // masukan username dan password
@@ -204,14 +200,49 @@ void login(){
         if((strcmp(usernameInput, "admin")==0) && (strcmp(psswdInput, "admin")==0)){
             printf("login menjadi admin berhasil\n\n");
             berhasil = true; gantiMode(1);
-        } else if((strcmp(usernameInput, "user")==0) && (strcmp(psswdInput, "user")==0)){
-            printf("login menjadi pelanggan berhasil\n\n");
-            berhasil = true; gantiMode(2);
         } else{
+            // mengecek username
+            for(int i = 0; i < jumlahPelanggan; i++){
+                if(strcmp(usernameInput, pelanggan[i].username) == 0){
+                    if(strcmp(psswdInput, pelanggan[i].password) == 0){
+                        printf("login menjadi pelanggan berhasil\n\n");
+                        berhasil = true; gantiMode(2); break;
+                    }
+                }
+            }
+
             // setiap login gagal maka jumlah kesempatan berkurang
             kesempatan--;
         }
     }
+}
+
+void regisPelanggan(){
+    char userPelanggan[100];
+    
+    // masukan username
+    printf("masukan username : ");
+    gets(userPelanggan);
+    // gets(pelanggan[jumlahPelanggan].username);
+
+    // mengecek username
+    for(int i = 0; i < jumlahPelanggan; i++){
+        if(strcmp(userPelanggan, pelanggan[i].username) == 0){
+            printf("username telah terpakai\n\n");
+            return;
+        }
+    }
+    
+    strcpy(pelanggan[jumlahPelanggan].username, userPelanggan);
+    // pelanggan[jumlahPelanggan].username = userPelanggan;
+
+    printf("masukan password : ");
+    gets(pelanggan[jumlahPelanggan].password);
+
+    // update jumlah pelanggan 
+    jumlahPelanggan++;
+
+    printf("registrasi berhasil!\n\n");
 }
 
 void tambahPaket(){
@@ -226,6 +257,5 @@ void tambahPaket(){
 
     printf("paket telah ditambahkan!\n\n");
 }
-
 
 
