@@ -40,31 +40,39 @@ struct Pelanggan{
     int wallet;
 } pelanggan[]; int jumlahPelanggan = 0;
 
-// fitur umum
+struct Pesanan{
+    char nama[100];
+    char alamat[100];
+    int jumlahOrang;
+    char paket[100];
+    char frame[100];
+    int totalBayar;
+    int jadwalFoto;
+} pesanan[]; int jumlahPesanan = 0;
+
+// daftar fungsi
+void bikinFile();
 void daftarFungsi(int);
 int  gantiMode(int);
-void login();
-void pilihMenu();
-
-// fitur admin;
-void bikinFile();
 void hapusPaket();
+void inputJadwal();
 void jadwalTersedia();
+int  kurangStokFrame(char *);
 void lihatJadwal();
 void lihatPaket();
 void lihatIncome(int);
-int  pilihJadwal();
+void login();
+void pesenPesanan();
+int  pilihJadwal(int);
+void pilihMenu();
+void regisPelanggan();
 void tambahPaket();
 void tambahFrame();
+void topUpWallet();
 void updateHargaPaket();
 void updateJadwal(int);
 void updateJumlahOrangPaket();
 void updateStokFrame();
-
-// fitur pelanggan
-void inputJadwal();
-void regisPelanggan();
-void topUpWallet();
 
 int main(){
     
@@ -164,6 +172,33 @@ void jadwalTersedia(){
     }
 }
 
+int  kurangStokFrame(char namaFrame[]){
+    int indexFrame = -1;
+
+    // input paket yang akan dicari
+    printf("masukan nama paket : ");
+    gets(namaFrame);
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(namaFrame,frame[i].nama) == 0){
+            indexFrame = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexFrame == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    // update stok 
+    frame[indexFrame].stok--;
+
+    return frame[indexFrame].harga;
+}
+
 void lihatStokFrame(){
     // pengecekan ketersediaan frame
     if(jumlahFrame == 0){
@@ -235,10 +270,65 @@ void login(){
     }
 }
 
-int  pilihJadwal(){
-    int indeksJadwal;
-    printf("masukan jadwal yang diinginkan : ");
-    scanf("%d", &indeksJadwal);
+void pesenPesanan(){
+    // tampilkan daftar paket
+    ihatPaket();
+
+    // masukan paket
+    printf("masukan nama paket : ");
+    gets(pesanan[jumlahPesanan].nama);
+
+    int indexPaket;
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(pesanan[jumlahPesanan].nama, paket[i].nama) == 0){
+            indexPaket = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexPaket == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    printf("masukan nama pemesan : ");
+    gets(pesanan[jumlahPesanan].nama);
+    printf("masukan alamat : ");
+    gets(pesanan[jumlahPesanan].alamat);
+    printf("masukan jumlah orang : ");
+    scanf("%d", &pesanan[jumlahPesanan].jumlahOrang);
+
+    // perlihatkan jadwal
+    lihatJadwal();
+
+    printf("pilih jadwal foto : ");
+    scanf("%d", &pesanan[jumlahPesanan].jadwalFoto); getchar();
+
+    // update jadwal
+    updateJadwal(pilihJadwal(&pesanan[jumlahPesanan].jadwalFoto));
+
+    // perlihatkan frame
+    lihatStokFrame();
+
+    printf("pilih frame foto : ");
+    gets(pesanan[jumlahPesanan].frame);
+
+    // hitung total biaya dan update stok frame
+    pesanan[jumlahPesanan].totalBayar = paket[indexPaket].harga + kurangStokFrame(pesanan[jumlahPesanan].frame);
+
+    // update jumlah pesanan
+    jumlahPesanan++;
+
+    printf("pesanan berhasil\n\n");
+}
+
+int pilihJadwal(int indeksJadwal){
+    // int indeksJadwal;
+    // printf("masukan jadwal yang diinginkan : ");
+    // scanf("%d", &indeksJadwal);
 
     if(indeksJadwal<0 || indeksJadwal>jadwalFoto){
         printf("jadwal tidak ditemukan\n\n");
