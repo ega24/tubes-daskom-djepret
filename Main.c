@@ -41,27 +41,32 @@ void pilihMenu();
 
 // fitur admin;
 void bikinFile();
-void cariJadwal();
-void editJumlahOrangPaket();
-void editStokFrame();
 void hapusPaket();
 void lihatJadwal();
 void lihatPaket();
-void lihatStokFrame(char *);
 void lihatIncome(int);
 void tambahPaket();
 void tambahFrame();
+void updateHargaPaket();
+void updateJumlahOrangPaket();
+void updateStokFrame();
 
 // fitur pelanggan
 void inputJadwal();
-void lihatStokFrame();
+// void lihatStokFrame();
 void regisPelanggan();
 void topUpWallet();
 
 int main(){
     
-    login(); 
-    // printf("mode : %d\n", mode);
+    bool keluar = false;
+
+    login();
+    
+    while(keluar != true){
+        daftarFungsi(mode);
+        pilihMenu();
+    }
     
     return 0;
 }
@@ -76,7 +81,7 @@ void bikinFile(){
     // ngecek filenya udah kebuat/kebuka
     if(fptr == NULL){
         printf("filenya gabisa kebuka\n");
-        exit(0);
+        // exit(0);
     } else{
         printf("filenya udah kebuat\n");
     }
@@ -84,73 +89,23 @@ void bikinFile(){
 
 void daftarFungsi(int mode){
     if(mode == 1){// admin
-        printf("1. buat file\n");
-        printf("2. buat file\n");
+        printf("1. lihat paket studio\n");
+        printf("2. buat paket stduio\n");
+        printf("3. hapus paket studio\n");
+        printf("4. update harga paket studio\n");
+        printf("5. update jumlah orang paket studio\n");
+        printf("6. lihat stok frame\n");
+        printf("7. update stok frame\n");
+        printf("99. logout\n");
+        printf("999. stop program\n\n");
+        // pass
     }else if(mode == 2){ // pelanggan
         // pass
     }
     pilihMenu();
 }
 
-void editJumlahOrangPaket(){
-    char namaPaket[100];
-    int indexPaket = -1;
-
-    // input paket yang akan dicari
-    printf("masukan nama paket : ");
-    gets(namaPaket);
-
-    // mencari paket
-    for(int i = 0; i < jumlahPaket; i++){
-        if(strcmp(namaPaket,paket[i].nama) == 0){
-            indexPaket = i;
-            break;
-        }
-    }
-
-    // pesan apabila paket tidak ditemukan
-    if(indexPaket == -1){
-        printf("paket tidak ditemukan\n\n");
-        return;
-    }
-
-    // masukan jumlah orang dalam paket yang baru
-    printf("masukan jumlah orang : ");
-    scanf("%d", &paket[indexPaket].jumlahOrang);
-
-    printf("jumlah orang telah diupdate!\n\n");
-}
-
-void editStokFrame(){
-    char namaFrame[100];
-    int indexFrame = -1;
-
-    // input paket yang akan dicari
-    printf("masukan nama paket : ");
-    gets(namaFrame);
-
-    // mencari paket
-    for(int i = 0; i < jumlahPaket; i++){
-        if(strcmp(namaFrame,frame[i].nama) == 0){
-            indexFrame = i;
-            break;
-        }
-    }
-
-    // pesan apabila paket tidak ditemukan
-    if(indexFrame == -1){
-        printf("paket tidak ditemukan\n\n");
-        return;
-    }
-
-    // masukan stok paket yang baru
-    printf("masukan stok paket : ");
-    scanf("%d", &frame[indexFrame].stok);
-
-    printf("stok frame telah diupdate!\n\n");
-}
-
-int gantiMode(int ganti){
+int  gantiMode(int ganti){
     mode = ganti;
     return mode;
 }
@@ -184,28 +139,6 @@ void hapusPaket(){
 
     // update jumlah paket
     jumlahPaket--;
-}
-
-void lihatStokFrame(char cari[]){
-    int indexFrame = -1;
-
-    // mencari frame
-    for(int i = 0; i < jumlahFrame; i++){
-        if(strcmp(cari,frame[i].nama) == 0){
-            indexFrame = i;
-            break;
-        }
-    }
-
-    // pesan apabila frame tidak ditemukan
-    if(indexFrame == -1){
-        printf("frame tidak ditemukan\n\n");
-        return;
-    }
-
-    printf("Nama : %s\n", frame[indexFrame].nama);
-    printf("Harga : %d\n", frame[indexFrame].harga);
-    printf("Stok : %d\n", frame[indexFrame].stok);
 }
 
 void lihatStokFrame(){
@@ -288,10 +221,31 @@ void pilihMenu(){
     if(mode == 1){
         switch (pilih){
             case 1:
-                bikinFile();
+                lihatPaket();
                 break;
+            case 2:
+                tambahPaket();
+                break;
+            case 3:
+                hapusPaket();
+                break;
+            case 4:
+                updateHargaPaket();
+                break;
+            case 5:
+                updateJumlahOrangPaket();
+                break;
+            case 6: 
+                lihatStokFrame();
+                break;
+            case 7:
+                updateStokFrame();
+            case 99:
+                login();
+            case 999:
+                exit(0);
             default:
-                printf("maaf, pilihan kamu gaada di menu\n");
+                printf("maaf, pilihan kamu gaada di menu\n\n");
                 break;
         }
     }else if(mode == 2){
@@ -300,7 +254,7 @@ void pilihMenu(){
                 // bikinFile();
                 break;
             default:
-                printf("maaf, pilihan kamu gaada di menu\n");
+                printf("maaf, pilihan kamu gaada di menu\n\n");
                 break;
         }
     }else{
@@ -375,4 +329,91 @@ void topUpWallet(){
     pelanggan[indexPelanggan].wallet += jumlahTopup;
 
     printf("topup berhasil\n\n");
+}
+
+void updateHargaPaket(){
+    char namaPaket[100];
+    int indexPaket = -1;
+
+    // input paket yang akan dicari
+    printf("masukan nama paket : ");
+    gets(namaPaket);
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(namaPaket,paket[i].nama) == 0){
+            indexPaket = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexPaket == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    // masukan harga paket yang baru
+    printf("masukan harga paket : ");
+    scanf("%d", &paket[indexPaket].harga);
+
+    printf("harga paket telah diupdate!\n\n");
+}
+
+void updateJumlahOrangPaket(){
+    char namaPaket[100];
+    int indexPaket = -1;
+
+    // input paket yang akan dicari
+    printf("masukan nama paket : ");
+    gets(namaPaket);
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(namaPaket,paket[i].nama) == 0){
+            indexPaket = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexPaket == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    // masukan jumlah orang dalam paket yang baru
+    printf("masukan jumlah orang : ");
+    scanf("%d", &paket[indexPaket].jumlahOrang);
+
+    printf("jumlah orang telah diupdate!\n\n");
+}
+
+void updateStokFrame(){
+    char namaFrame[100];
+    int indexFrame = -1;
+
+    // input paket yang akan dicari
+    printf("masukan nama paket : ");
+    gets(namaFrame);
+
+    // mencari paket
+    for(int i = 0; i < jumlahPaket; i++){
+        if(strcmp(namaFrame,frame[i].nama) == 0){
+            indexFrame = i;
+            break;
+        }
+    }
+
+    // pesan apabila paket tidak ditemukan
+    if(indexFrame == -1){
+        printf("paket tidak ditemukan\n\n");
+        return;
+    }
+
+    // masukan stok paket yang baru
+    printf("masukan stok paket : ");
+    scanf("%d", &frame[indexFrame].stok);
+
+    printf("stok frame telah diupdate!\n\n");
 }
