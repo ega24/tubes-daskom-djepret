@@ -24,6 +24,13 @@ struct Paket{
 } paket[]; int jumlahPaket = 0;
 // int jumlahPaket = sizeof(paket)/sizeof(paket[0]);
 
+struct Fotografer{
+    int jam;
+    char hari[100];
+} fotografer[5] = {
+    {2, "senin"}, {4, "senin"}, {4, "rabu"}, {2, "kamis"}, {2, "jumat"}
+}; int jadwalFoto = 5;
+
 struct Pelanggan{
     char username[100];
     char password[100];
@@ -42,18 +49,20 @@ void pilihMenu();
 // fitur admin;
 void bikinFile();
 void hapusPaket();
+void jadwalTersedia();
 void lihatJadwal();
 void lihatPaket();
 void lihatIncome(int);
+int  pilihJadwal();
 void tambahPaket();
 void tambahFrame();
 void updateHargaPaket();
+void updateJadwal(int);
 void updateJumlahOrangPaket();
 void updateStokFrame();
 
 // fitur pelanggan
 void inputJadwal();
-// void lihatStokFrame();
 void regisPelanggan();
 void topUpWallet();
 
@@ -67,6 +76,7 @@ int main(){
         daftarFungsi(mode);
         pilihMenu();
     }
+    // updateJadwal(pilihJadwal());
     
     return 0;
 }
@@ -141,6 +151,19 @@ void hapusPaket(){
     jumlahPaket--;
 }
 
+void jadwalTersedia(){
+    if(jadwalFoto == 0){
+        printf("tidak ada jadwal kosong\n\n");
+    }else{
+        printf("\njadwal kosong :\n");
+        for (int i = 0; i < jadwalFoto; i++){
+            printf("%d. ", i+1);
+            printf("Hari : %s\n", fotografer[i].hari);
+            printf("   Jam : %d\n", fotografer[i].jam);
+        }
+    }
+}
+
 void lihatStokFrame(){
     // pengecekan ketersediaan frame
     if(jumlahFrame == 0){
@@ -210,6 +233,19 @@ void login(){
             kesempatan--;
         }
     }
+}
+
+int  pilihJadwal(){
+    int indeksJadwal;
+    printf("masukan jadwal yang diinginkan : ");
+    scanf("%d", &indeksJadwal);
+
+    if(indeksJadwal<0 || indeksJadwal>jadwalFoto){
+        printf("jadwal tidak ditemukan\n\n");
+        return;
+    }
+
+    return indeksJadwal;
 }
 
 void pilihMenu(){
@@ -358,6 +394,18 @@ void updateHargaPaket(){
     scanf("%d", &paket[indexPaket].harga);
 
     printf("harga paket telah diupdate!\n\n");
+}
+
+void updateJadwal(int indeks){
+    // update urutan paket
+    for(int i = indeks; i < jadwalFoto-1; i++){
+        fotografer[i] = fotografer[i+1];
+    }
+
+    // update sisa jadwal
+    jadwalFoto--;
+
+    printf("jadwal telah dipilih\n\n");
 }
 
 void updateJumlahOrangPaket(){
