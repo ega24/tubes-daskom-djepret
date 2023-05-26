@@ -1,4 +1,4 @@
-# tubes-daskom-djepret
+# Tubes Daskom Djepret
 Tugas Besar Praktikum Algoritma Pemograman Laboratorium Dasar Komputer 2023
 
 Judul Tugas : Djepret
