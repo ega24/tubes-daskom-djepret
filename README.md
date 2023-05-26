@@ -28,4 +28,4 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 ![Main (1)](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/00ba848f-f58e-42ad-b4e4-7b251f6e8f69)
 
 ### Fungsi Login
-![Main (1)](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/00ba848f-f58e-42ad-b4e4-7b251f6e8f69)
+
