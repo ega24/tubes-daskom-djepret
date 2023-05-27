@@ -55,6 +55,7 @@ struct Pesanan{
     int jadwalFoto;
 } pesanan[]; int jumlahPesanan = 0;
 
+void bacaDataPelanggan(struct Pelanggan *, int *);
 void bayar(int);
 void bikinFile();
 void cekSaldo(int);
@@ -71,6 +72,7 @@ void pesenPesanan(int);
 int  pilihJadwal(int);
 void pilihMenu();
 void regisPelanggan();
+void simpanDataPelanggan(struct Pelanggan *, int);
 int  tagihan(int);
 void tambahPaket();
 void tambahFrame();
@@ -82,7 +84,8 @@ void updateStokFrame();
 
 int main(){
     // system("cls");
-
+    bikinFile();
+    
     bool keluar = false;
 
     // regisPelanggan();
@@ -96,6 +99,20 @@ int main(){
     // updateJadwal(pilihJadwal());
     
     return 0;
+}
+
+void bacaDataPelanggan(struct Pelanggan pelanggan[], int *jumlahPelanggan) {
+    FILE *fptr;
+    fptr = fopen("data_pelanggan.dat", "rb");
+    if (fptr == NULL) {
+        printf("Gagal membuka file data_pelanggan.dat\n");
+        return;
+    }
+
+    fread(jumlahPelanggan, sizeof(int), 1, fptr);
+    fread(pelanggan, sizeof(struct Pelanggan), *jumlahPelanggan, fptr);
+
+    fclose(fptr);
 }
 
 void bayar(int indeks){
@@ -119,7 +136,7 @@ void bikinFile(){
     FILE *fptr;
 
     // ngebuka file
-    fptr = fopen("data djepret.dat", "w");
+    fptr = fopen("data_pelanggan.dat", "w");
 
     // ngecek filenya udah kebuat/kebuka
     if(fptr == NULL){
@@ -128,6 +145,8 @@ void bikinFile(){
     } else{
         printf("filenya udah kebuat\n");
     }
+
+    fclose(fptr);
 }
 
 void cekSaldo(int indeks){
@@ -285,6 +304,8 @@ void login(){
     int kesempatan = 3; 
     bool berhasil = false;
 
+    bacaDataPelanggan(pelanggan, &jumlahPelanggan);
+
     getchar();
 
     // looping login
@@ -303,15 +324,16 @@ void login(){
             berhasil = true; gantiMode(1);
         } else{
             // mengecek username
-            for(int i = 0; i < jumlahPelanggan; i++){
-                if(strcmp(usernameInput, pelanggan[i].username) == 0){
-                    if(strcmp(psswdInput, pelanggan[i].password) == 0){
-                        printf("login menjadi pelanggan berhasil\n\n");
-                        berhasil = true; gantiMode(2); 
-                        indexPelanggan = i; indexPesanan = -1;
-                        break;
-                    }
+            for (int i = 0; i < jumlahPelanggan; i++) {
+                if (strcmp(usernameInput, pelanggan[i].username) == 0 && strcmp(psswdInput, pelanggan[i].password) == 0) {
+                    indexPelanggan = i;
+                    break;
                 }
+            }
+
+            // tampilkan pesan berhasil
+            if (indexPelanggan != -1) {
+                printf("Berhasil login sebagai %s\n", pelanggan[indexPelanggan].nama);
             }
 
             // setiap login gagal maka jumlah kesempatan berkurang
@@ -486,34 +508,46 @@ void pilihMenu(){
 }
 
 void regisPelanggan(){
-    char userPelanggan[100];
+    // char userPelanggan[100];
+
+    bacaDataPelanggan(pelanggan, &jumlahPelanggan);
     
     getchar();
-    // masukan username
-    printf("masukan username : ");
-    gets(userPelanggan);
-    // gets(pelanggan[jumlahPelanggan].username);
-
-    // mengecek username
-    for(int i = 0; i < jumlahPelanggan; i++){
-        if(strcmp(userPelanggan, pelanggan[i].username) == 0){
-            printf("username telah terpakai\n\n");
-            return;
-        }
-    }
     
-    strcpy(pelanggan[jumlahPelanggan].username, userPelanggan);
-    // pelanggan[jumlahPelanggan].username = userPelanggan;
-
-    printf("masukan password : ");
-    gets(pelanggan[jumlahPelanggan].password);
-
+    // Input data pelanggan baru
+    printf("masukan username: ");
+    scanf("%s", pelanggan[jumlahPelanggan].username);
+    printf("masukan password: ");
+    scanf("%s", pelanggan[jumlahPelanggan].password);
+    printf("masukan nama: ");
+    scanf("%s", pelanggan[jumlahPelanggan].nama);
+    printf("masukan jumlah orang: ");
+    scanf("%d", &pelanggan[jumlahPelanggan].jumlahOrang);
+    pelanggan[jumlahPelanggan].bayar = 0;
+    pelanggan[jumlahPelanggan].wallet = 0;
     pelanggan[jumlahPelanggan].jumlahPesan = 0;
 
     // update jumlah pelanggan 
     jumlahPelanggan++;
 
+    // Simpan data pelanggan ke file
+    simpanDataPelanggan(pelanggan, jumlahPelanggan);
+
     printf("registrasi berhasil!\n\n");
+}
+
+void simpanDataPelanggan(struct Pelanggan pelanggan[], int jumlahPelanggan) {
+    FILE *fptr;
+    fptr = fopen("data_pelanggan.dat", "wb");
+    if (fptr == NULL) {
+        printf("Gagal membuka file data_pelanggan.dat\n");
+        return;
+    }
+
+    fwrite(&jumlahPelanggan, sizeof(int), 1, fptr);
+    fwrite(pelanggan, sizeof(struct Pelanggan), jumlahPelanggan, fptr);
+
+    fclose(fptr);
 }
 
 int  tagihan(int indeks){
