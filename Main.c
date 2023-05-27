@@ -5,7 +5,8 @@
 #include <stdlib.h>
 
 // buat variabel untuk roleplay sebagai admin(1)/pelanggan(2)
-int mode;
+int mode = 0;
+// int modePtr = *mode;
 int totalIncome = 0;
 
 // variabel untuk menampung indeks pelanggan dan pesanan
@@ -54,6 +55,49 @@ struct Pesanan{
     int jadwalFoto;
 } pesanan[]; int jumlahPesanan = 0;
 
+void bayar(int);
+void bikinFile();
+void cekSaldo(int);
+void daftarFungsi(int);
+int  gantiMode(int);
+void hapusPaket();
+void inputJadwal();
+void jadwalTersedia();
+int  kurangStokFrame(char *);
+void lihatPaket();
+void lihatIncome(int);
+void login();
+void pesenPesanan(int);
+int  pilihJadwal(int);
+void pilihMenu();
+void regisPelanggan();
+int  tagihan(int);
+void tambahPaket();
+void tambahFrame();
+void topUpWallet(int);
+void updateHargaPaket();
+void updateJadwal(int);
+void updateJumlahOrangPaket();
+void updateStokFrame();
+
+int main(){
+    // system("cls");
+
+    bool keluar = false;
+
+    // regisPelanggan();
+    // login();
+    
+    while(keluar != true){
+        system("cls");    
+        daftarFungsi(mode);
+        system("pause");
+    }
+    // updateJadwal(pilihJadwal());
+    
+    return 0;
+}
+
 void bayar(int indeks){
     if(pelanggan[indeks].wallet < tagihan(indeks)){
         printf("maaf, saldo kamu tidak cukup\n\n");
@@ -68,45 +112,6 @@ void bayar(int indeks){
             jumlahPesanan--;
         }
     }
-}
-void bikinFile();
-void cekSaldo(int);
-void daftarFungsi(int);
-int  gantiMode(int);
-void hapusPaket();
-void inputJadwal();
-void jadwalTersedia();
-int  kurangStokFrame(char *);
-void lihatJadwal();
-void lihatPaket();
-void lihatIncome(int);
-void login();
-void pesenPesanan();
-int  pilihJadwal(int);
-void pilihMenu();
-void regisPelanggan();
-int  tagihan(int);
-void tambahPaket();
-void tambahFrame();
-void topUpWallet();
-void updateHargaPaket();
-void updateJadwal(int);
-void updateJumlahOrangPaket();
-void updateStokFrame();
-
-int main(){
-    
-    bool keluar = false;
-
-    login();
-    
-    while(keluar != true){
-        daftarFungsi(mode);
-        pilihMenu();
-    }
-    // updateJadwal(pilihJadwal());
-    
-    return 0;
 }
 
 void bikinFile(){
@@ -138,21 +143,24 @@ void daftarFungsi(int mode){
         printf("4. update harga paket studio\n");
         printf("5. update jumlah orang paket studio\n");
         printf("6. lihat stok frame\n");
-        printf("7. update stok frame\n");
+        printf("7. tambah frame\n");
+        printf("8. update stok frame\n");
         printf("99. logout\n");
         printf("999. stop program\n\n");
         // pass
     }else if(mode == 2){ // pelanggan
         printf("1. lihat paket studio\n");
-        printf("2. buat paket stduio\n");
-        printf("3. hapus paket studio\n");
-        printf("4. update harga paket studio\n");
-        printf("5. update jumlah orang paket studio\n");
-        printf("6. lihat stok frame\n");
-        printf("7. update stok frame\n");
+        printf("2. pesan paket\n");
+        printf("3. lihat saldo\n");
+        printf("4. topup saldo\n");
+        printf("5. bayar\n");
         printf("99. logout\n");
         printf("999. stop program\n\n");
         // pass
+    }else{
+        printf("1. regsitrasi\n");
+        printf("2. login\n");
+        printf("999. stop program\n\n");
     }
     pilihMenu();
 }
@@ -166,9 +174,11 @@ void hapusPaket(){
     char namaPaket[100];
     int indexPaket = -1;
 
+    getchar();
+
     // input paket yang akan dicari
     printf("masukan nama paket : ");
-    gets(namaPaket);
+    gets(namaPaket); getchar();
 
     // mencari paket
     for(int i = 0; i < jumlahPaket; i++){
@@ -209,6 +219,8 @@ void jadwalTersedia(){
 int  kurangStokFrame(char namaFrame[]){
     int indexFrame = -1;
 
+    getchar();
+
     // input paket yang akan dicari
     printf("masukan nama paket : ");
     gets(namaFrame);
@@ -224,7 +236,7 @@ int  kurangStokFrame(char namaFrame[]){
     // pesan apabila paket tidak ditemukan
     if(indexFrame == -1){
         printf("paket tidak ditemukan\n\n");
-        return;
+        return 0;
     }
 
     // update stok 
@@ -236,9 +248,9 @@ int  kurangStokFrame(char namaFrame[]){
 void lihatStokFrame(){
     // pengecekan ketersediaan frame
     if(jumlahFrame == 0){
-        printf("belum ada paket\n\n");
+        printf("belum ada frame\n\n");
     }else{
-        printf("\ndaftar paket :\n");
+        printf("\ndaftar frame :\n");
         for (int i = 0; i < jumlahFrame; i++){
             printf("%d. ", i+1);
             printf("Nama : %s\n", frame[i].nama);
@@ -259,6 +271,8 @@ void lihatPaket(){
             printf("Nama : %s\n", paket[i].nama);
             printf("   Harga : %d\n", paket[i].harga);
         }
+
+        printf("\n");
     }
 }
 
@@ -270,6 +284,8 @@ void login(){
     // jumlah kesempatan dan kondisi berhasil
     int kesempatan = 3; 
     bool berhasil = false;
+
+    getchar();
 
     // looping login
     while(kesempatan >0 && berhasil==false){
@@ -304,9 +320,11 @@ void login(){
     }
 }
 
-void pesenPesanan(){
+void pesenPesanan(int indeks){
     // tampilkan daftar paket
-    ihatPaket();
+    lihatPaket();
+
+    getchar();
 
     // masukan paket
     printf("masukan nama paket : ");
@@ -334,17 +352,17 @@ void pesenPesanan(){
     gets(pesanan[indexPesanan].nama);
     printf("masukan alamat : ");
     gets(pesanan[indexPesanan].alamat);
-    printf("masukan jumlah orang : ");
+    printf("masukan jumlah orang : "); // getchar();
     scanf("%d", &pesanan[indexPesanan].jumlahOrang);
 
     // perlihatkan jadwal
-    lihatJadwal();
+    jadwalTersedia();
 
     printf("pilih jadwal foto : ");
     scanf("%d", &pesanan[indexPesanan].jadwalFoto); getchar();
 
     // update jadwal
-    updateJadwal(pilihJadwal(&pesanan[indexPesanan].jadwalFoto));
+    updateJadwal(pilihJadwal(pesanan[indexPesanan].jadwalFoto));
 
     // perlihatkan frame
     lihatStokFrame();
@@ -359,7 +377,7 @@ void pesenPesanan(){
     totalIncome += pesanan[indexPesanan].totalBayar;
 
     // simpan pesanan
-    pelanggan[indexPelanggan].indeksPesanan[pelanggan[indexPelanggan].jumlahPesan] = indexPesanan;
+    pelanggan[indeks].indeksPesanan[pelanggan[indeks].jumlahPesan] = indexPesanan;
 
     // update jumlah pesanan
     jumlahPesanan++;
@@ -374,7 +392,7 @@ int  pilihJadwal(int indeksJadwal){
 
     if(indeksJadwal<0 || indeksJadwal>jadwalFoto){
         printf("jadwal tidak ditemukan\n\n");
-        return;
+        return 0;
     }
 
     return indeksJadwal;
@@ -407,9 +425,14 @@ void pilihMenu(){
                 lihatStokFrame();
                 break;
             case 7:
+                tambahFrame();
+                break;
+            case 8:
                 updateStokFrame();
+                break;
             case 99:
-                login();
+                gantiMode(0);
+                break;
             case 999:
                 exit(0);
             default:
@@ -419,20 +442,53 @@ void pilihMenu(){
     }else if(mode == 2){
         switch (pilih){
             case 1:
-                // bikinFile();
+                lihatPaket();
                 break;
+            case 2:
+                pesenPesanan(indexPelanggan);
+                break;
+            case 3:
+                cekSaldo(indexPelanggan);
+                break;
+            case 4:
+                topUpWallet(indexPelanggan);
+                break;
+            case 5:
+                tagihan(indexPelanggan);
+                bayar(indexPelanggan);
+                break;
+            case 99:
+                gantiMode(0);
+                // login();
+                break;
+            case 999:
+                exit(0);
             default:
                 printf("maaf, pilihan kamu gaada di menu\n\n");
                 break;
         }
     }else{
-        printf("maaf kamu belum login\n"); 
+        switch (pilih){
+            case 1:
+                regisPelanggan();
+                break;
+            case 2:
+                login();
+                break;
+            case 999:
+                exit(0);
+            default:
+                printf("maaf, pilihan kamu gaada di menu\n\n");
+                break;
+        }
+        // printf("maaf kamu belum login\n"); 
     }
 }
 
 void regisPelanggan(){
     char userPelanggan[100];
     
+    getchar();
     // masukan username
     printf("masukan username : ");
     gets(userPelanggan);
@@ -467,23 +523,24 @@ int  tagihan(int indeks){
         totalTagihan += pesanan[pelanggan[indeks].indeksPesanan[i]].totalBayar;
     }
 
-    printf("total tagihan kamu : ");
-    scanf("%d", &totalTagihan);
+    printf("total tagihan kamu : %d\n\n", totalTagihan);
 
-    printf("saldo kamu : ");
+    // printf("saldo kamu : ");
     cekSaldo(indeks);
 
     return totalTagihan;
 }
 
 void tambahFrame(){
+    getchar();
+
     // input nama, harga dan stok frame
-    printf("nama paket  : ");
-    gets(paket[jumlahPaket].nama);
-    printf("harga paket : ");
-    scanf("%d", &paket[jumlahPaket].harga);
-    printf("stok paket : ");
-    scanf("%d", &paket[jumlahPaket].stok);
+    printf("nama frame  : ");
+    gets(frame[jumlahFrame].nama);
+    printf("harga frame : ");
+    scanf("%d", &frame[jumlahFrame].harga);
+    printf("stok frame : ");
+    scanf("%d", &frame[jumlahFrame].stok);
 
     // update jumlah frame
     jumlahFrame++;
@@ -492,6 +549,8 @@ void tambahFrame(){
 }
 
 void tambahPaket(){
+    getchar();
+
     // input nama dan harga paket
     printf("nama paket  : ");
     gets(paket[jumlahPaket].nama);
@@ -504,7 +563,7 @@ void tambahPaket(){
     printf("paket telah ditambahkan!\n\n");
 }
 
-void topUpWallet(){
+void topUpWallet(int indeks){
     // variabel untuk menampung jumlah topup
     int jumlahTopup;
 
@@ -512,7 +571,7 @@ void topUpWallet(){
     scanf("%d", &jumlahTopup);
 
     // update jumlah uang 
-    pelanggan[indexPelanggan].wallet += jumlahTopup;
+    pelanggan[indeks].wallet += jumlahTopup;
 
     printf("topup berhasil\n\n");
 }
@@ -520,6 +579,8 @@ void topUpWallet(){
 void updateHargaPaket(){
     char namaPaket[100];
     int indexPaket = -1;
+
+    getchar();
 
     // input paket yang akan dicari
     printf("masukan nama paket : ");
