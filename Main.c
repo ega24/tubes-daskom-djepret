@@ -8,6 +8,7 @@
 int mode = 0;
 // int modePtr = *mode;
 int totalIncome = 0;
+int totalTagihan = 0;
 
 // variabel untuk menampung indeks pelanggan dan pesanan
 int indexPelanggan = -1;
@@ -99,10 +100,13 @@ int main(){
 }
 
 void bayar(int indeks){
-    if(pelanggan[indeks].wallet < tagihan(indeks)){
+    tagihan(indeks);
+
+    if(pelanggan[indeks].wallet < totalTagihan){
         printf("maaf, saldo kamu tidak cukup\n\n");
     } else{
-        pelanggan[indeks].wallet -= tagihan(indeks);
+        pelanggan[indeks].wallet -= pelanggan[indeks].bayar;
+        printf("pembayaran berhasil\n\n");
         
         for(int i = 0; i < pelanggan[indeks].jumlahPesan; i++){
             for(int j = pelanggan[indeks].indeksPesanan[i]; j < jumlahPesanan; j++){
@@ -145,6 +149,7 @@ void daftarFungsi(int mode){
         printf("6. lihat stok frame\n");
         printf("7. tambah frame\n");
         printf("8. update stok frame\n");
+        printf("9. lihat income\n");
         printf("99. logout\n");
         printf("999. stop program\n\n");
         // pass
@@ -174,11 +179,11 @@ void hapusPaket(){
     char namaPaket[100];
     int indexPaket = -1;
 
-    getchar();
+    // getchar();
 
     // input paket yang akan dicari
     printf("masukan nama paket : ");
-    gets(namaPaket); getchar();
+    gets(namaPaket); //getchar();
 
     // mencari paket
     for(int i = 0; i < jumlahPaket; i++){
@@ -219,11 +224,11 @@ void jadwalTersedia(){
 int  kurangStokFrame(char namaFrame[]){
     int indexFrame = -1;
 
-    getchar();
+    // getchar();
 
-    // input paket yang akan dicari
-    printf("masukan nama paket : ");
-    gets(namaFrame);
+    // // input paket yang akan dicari
+    // printf("masukan nama paket : ");
+    // gets(namaFrame);
 
     // mencari paket
     for(int i = 0; i < jumlahPaket; i++){
@@ -285,7 +290,7 @@ void login(){
     int kesempatan = 3; 
     bool berhasil = false;
 
-    getchar();
+    // getchar();
 
     // looping login
     while(kesempatan >0 && berhasil==false){
@@ -324,7 +329,7 @@ void pesenPesanan(int indeks){
     // tampilkan daftar paket
     lihatPaket();
 
-    getchar();
+    // getchar();
 
     // masukan paket
     printf("masukan nama paket : ");
@@ -353,7 +358,7 @@ void pesenPesanan(int indeks){
     printf("masukan alamat : ");
     gets(pesanan[indexPesanan].alamat);
     printf("masukan jumlah orang : "); // getchar();
-    scanf("%d", &pesanan[indexPesanan].jumlahOrang);
+    scanf("%d", &pesanan[indexPesanan].jumlahOrang); getchar();
 
     // perlihatkan jadwal
     jadwalTersedia();
@@ -367,14 +372,14 @@ void pesenPesanan(int indeks){
     // perlihatkan frame
     lihatStokFrame();
 
-    printf("pilih frame foto : ");
+    printf("pilih frame foto (nama frame) : ");
     gets(pesanan[indexPesanan].frame);
 
     // hitung total biaya dan update stok frame
-    pesanan[indexPesanan].totalBayar = paket[indexPaket].harga + kurangStokFrame(pesanan[indexPesanan].frame);
+    pelanggan[indexPelanggan].bayar += paket[indexPaket].harga + kurangStokFrame(pesanan[indexPesanan].frame);
 
     // update total
-    totalIncome += pesanan[indexPesanan].totalBayar;
+    totalIncome += pelanggan[indexPelanggan].bayar;
 
     // simpan pesanan
     pelanggan[indeks].indeksPesanan[pelanggan[indeks].jumlahPesan] = indexPesanan;
@@ -402,7 +407,7 @@ void pilihMenu(){
     int pilih;
 
     printf("pilih menu : ");
-    scanf("%d", &pilih);
+    scanf("%d", &pilih); getchar();
 
     if(mode == 1){
         switch (pilih){
@@ -430,6 +435,9 @@ void pilihMenu(){
             case 8:
                 updateStokFrame();
                 break;
+            case 9:
+                printf("total income adalah : %d\n\n", totalIncome);
+                break;
             case 99:
                 gantiMode(0);
                 break;
@@ -454,7 +462,7 @@ void pilihMenu(){
                 topUpWallet(indexPelanggan);
                 break;
             case 5:
-                tagihan(indexPelanggan);
+                // tagihan(indexPelanggan);
                 bayar(indexPelanggan);
                 break;
             case 99:
@@ -488,7 +496,7 @@ void pilihMenu(){
 void regisPelanggan(){
     char userPelanggan[100];
     
-    getchar();
+    // getchar();
     // masukan username
     printf("masukan username : ");
     gets(userPelanggan);
@@ -517,13 +525,12 @@ void regisPelanggan(){
 }
 
 int  tagihan(int indeks){
-    int totalTagihan = 0;
 
-    for(int i = 0; i < pelanggan[indeks].jumlahPesan; i++){
-        totalTagihan += pesanan[pelanggan[indeks].indeksPesanan[i]].totalBayar;
-    }
+    // for(int i = 0; i < pelanggan[indeks].jumlahPesan; i++){
+    //     totalTagihan += pelanggan[indeks].bayar;
+    // }
 
-    printf("total tagihan kamu : %d\n\n", totalTagihan);
+    printf("total tagihan kamu : %d\n\n", pelanggan[indeks].bayar);
 
     // printf("saldo kamu : ");
     cekSaldo(indeks);
@@ -532,7 +539,7 @@ int  tagihan(int indeks){
 }
 
 void tambahFrame(){
-    getchar();
+    // getchar();
 
     // input nama, harga dan stok frame
     printf("nama frame  : ");
@@ -540,7 +547,7 @@ void tambahFrame(){
     printf("harga frame : ");
     scanf("%d", &frame[jumlahFrame].harga);
     printf("stok frame : ");
-    scanf("%d", &frame[jumlahFrame].stok);
+    scanf("%d", &frame[jumlahFrame].stok); getchar();
 
     // update jumlah frame
     jumlahFrame++;
@@ -549,13 +556,13 @@ void tambahFrame(){
 }
 
 void tambahPaket(){
-    getchar();
+    // getchar();
 
     // input nama dan harga paket
     printf("nama paket  : ");
     gets(paket[jumlahPaket].nama);
     printf("harga paket : ");
-    scanf("%d", &paket[jumlahPaket].harga);
+    scanf("%d", &paket[jumlahPaket].harga); getchar();
 
     // update jumlah paket
     jumlahPaket++;
@@ -568,7 +575,7 @@ void topUpWallet(int indeks){
     int jumlahTopup;
 
     printf("masukan jumlah topup : ");
-    scanf("%d", &jumlahTopup);
+    scanf("%d", &jumlahTopup); getchar();
 
     // update jumlah uang 
     pelanggan[indeks].wallet += jumlahTopup;
@@ -602,7 +609,7 @@ void updateHargaPaket(){
 
     // masukan harga paket yang baru
     printf("masukan harga paket : ");
-    scanf("%d", &paket[indexPaket].harga);
+    scanf("%d", &paket[indexPaket].harga); getchar();
 
     printf("harga paket telah diupdate!\n\n");
 }
@@ -643,7 +650,7 @@ void updateJumlahOrangPaket(){
 
     // masukan jumlah orang dalam paket yang baru
     printf("masukan jumlah orang : ");
-    scanf("%d", &paket[indexPaket].jumlahOrang);
+    scanf("%d", &paket[indexPaket].jumlahOrang); getchar();
 
     printf("jumlah orang telah diupdate!\n\n");
 }
