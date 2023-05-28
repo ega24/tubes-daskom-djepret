@@ -31,7 +31,8 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 ![DaftarFungsi](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/ec559d66-6a43-4493-91bf-35a23b61efd9)
 
 ### pilihMenu();
-![PilihMenu](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/163e17d5-a66b-4279-af21-b34c02d6cbce)
+<!-- ![PilihMenu](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/163e17d5-a66b-4279-af21-b34c02d6cbce) -->
+![PilihMenu-lagi](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/e43b5ef3-1ab8-4e6e-9a46-d569b4bf5ad1)
 
 ### regisPelanggan();
 ![RegisPelanggan](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/dd073f1d-9453-44fd-a98d-9a3050b145ed)
@@ -50,6 +51,25 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 
 ### updateHargaPaket();
 ![UpdateHargaPaket](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/2be8a699-7a50-4c00-930c-51d614d99530)
+
+### lihatFrame();
+![LihatFrame](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/64a01348-d96f-4b51-a931-babd5aab08b9)
+
+### tambahFrame
+![TambahFrame](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/11ef7128-2a05-40db-b50b-233acc7aefe5)
+
+### hapusFrame();
+![HapusFrame](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/754aed1c-bd38-4a65-86ee-4c51c83b03f4)
+
+### updateStokFrame();
+![UpdateStokFrame](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/57e917ce-c61f-43a3-8da8-61b9b499ab99)
+
+
+
+
+
+
+
 
 
 
