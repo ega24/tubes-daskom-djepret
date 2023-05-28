@@ -25,7 +25,7 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 ## Flowchart
 
 ### Main Program
-(![Main](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/8d6ee4bd-802c-43b7-a099-8071b81d77c7)
+![Main](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/4fbdb3e9-2343-487e-9783-bed87e06be48)
 
 
 ### Fungsi Login
