@@ -27,7 +27,11 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 ### Main Program
 ![Main](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/4fbdb3e9-2343-487e-9783-bed87e06be48)
 
-
 ### daftarFungsi();
-![DaftarFungsi](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/5c48b63f-d9d3-43a0-bd7c-1f0e1ed5670b)
+![DaftarFungsi](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/ec559d66-6a43-4493-91bf-35a23b61efd9)
+
+### pilihMenu();
+![PilihMenu](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/163e17d5-a66b-4279-af21-b34c02d6cbce)
+
+
 
