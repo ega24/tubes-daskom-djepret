@@ -70,8 +70,11 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 ### topupSaldo();
 ![TopupSaldo](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/a9b5eeff-32c0-4d9a-807d-949ec8dbd112)
 
+### pesanPesanan();
+![PesanPesanan](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/e01765c1-c429-4173-a1f5-6869b69271bf)
 
-
+### bayar();
+![Bayar](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/ef9994b6-fc4e-4017-aeb8-f55ade394335)
 
 
 
