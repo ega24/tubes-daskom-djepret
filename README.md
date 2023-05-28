@@ -48,5 +48,10 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 ### hapusPaket();
 ![HapusPaket](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/c924dfba-bc78-4a4d-ac4a-b63c70c2cbe1)
 
+### updateHargaPaket();
+![UpdateHargaPaket](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/2be8a699-7a50-4c00-930c-51d614d99530)
+
+
+
 
 
