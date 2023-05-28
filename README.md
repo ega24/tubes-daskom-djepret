@@ -64,7 +64,11 @@ Dalam program D'Jepret ada 2 akun dengan fitur berbeda yaitu :
 ### updateStokFrame();
 ![UpdateStokFrame](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/57e917ce-c61f-43a3-8da8-61b9b499ab99)
 
+### cekSaldo();
+![CekSaldo](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/1c8e5655-7bfc-4e35-846c-94d084e256c8)
 
+### topupSaldo();
+![TopupSaldo](https://github.com/ega24/tubes-daskom-djepret/assets/75112508/a9b5eeff-32c0-4d9a-807d-949ec8dbd112)
 
 
 
